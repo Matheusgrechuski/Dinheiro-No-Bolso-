@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +10,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+  
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 font-roboto">
     <header class="bg-blue-600 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold">Dinheiro no Bolso</h1>
             <nav>
                 <ul class="flex space-x-4">
-                    <li><a href="#" class="hover:underline">Home</a></li>
-                    <li><a href="#" class="hover:underline">Despesas</a></li>
-                    <li><a href="#" class="hover:underline">Relatórios</a></li>
+                    <li><a href="#" class="hover:underline" id="home-link">Home</a></li>
+                    <li><a href="#" class="hover:underline" id="expenses-link">Despesas</a></li>
+                    <li><a href="#" class="hover:underline" id="reports-link">Relatórios</a></li>
                     <li><a href="#" class="hover:underline">Configurações</a></li>
                 </ul>
             </nav>
@@ -25,55 +28,73 @@
     </header>
 
     <main class="container mx-auto mt-8">
-        <div class="bg-white p-6 rounded shadow-md">
-            <h2 class="text-xl font-bold mb-4">Adicionar Nova Despesa</h2>
-            <form id="expense-form" class="space-y-4">
-                <div>
-                    <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
-                    <input type="text" id="description" name="description" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
-                </div>
-                <div>
-                    <label for="amount" class="block text-sm font-medium text-gray-700">Valor</label>
-                    <input type="number" id="amount" name="amount" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
-                </div>
-                <div>
-                    <label for="date" class="block text-sm font-medium text-gray-700">Data</label>
-                    <input type="date" id="date" name="date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
-                </div>
-                <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                    <select id="status" name="status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
-                        <option value="Pago">Pago</option>
-                        <option value="Pendente">Pendente</option>
-                        <option value="À Vista">À Vista</option>
-                        <option value="A Prazo">A Prazo</option>
-                    </select>
-                </div>
-                <div id="installments-container" class="hidden">
-                    <label for="installments" class="block text-sm font-medium text-gray-700">Parcelas</label>
-                    <input type="number" id="installments" name="installments" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
-                </div>
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">Adicionar</button>
-            </form>
+        <div id="home-section" class="hidden">
+            <div class="bg-white p-6 rounded shadow-md">
+                <h2 class="text-xl font-bold mb-4">Bem-vindo ao Dinheiro no Bolso</h2>
+                <p>Gerencie suas despesas de forma fácil e eficiente.</p>
+            </div>
         </div>
 
-        <div class="bg-white p-6 rounded shadow-md mt-8">
-            <h2 class="text-xl font-bold mb-4">Lista de Despesas</h2>
-            <table class="min-w-full bg-white">
-                <thead>
-                    <tr>
-                        <th class="py-2">Descrição</th>
-                        <th class="py-2">Valor</th>
-                        <th class="py-2">Data</th>
-                        <th class="py-2">Status</th>
-                        <th class="py-2">Parcelas</th>
-                        <th class="py-2">Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="expense-list">
-                    <!-- Lista de despesas vazia -->
-                </tbody>
-            </table>
+        <div id="expenses-section" class="hidden">
+            <div class="bg-white p-6 rounded shadow-md">
+                <h2 class="text-xl font-bold mb-4">Adicionar Nova Despesa</h2>
+                <form id="expense-form" class="space-y-4">
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
+                        <input type="text" id="description" name="description" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                    </div>
+                    <div>
+                        <label for="amount" class="block text-sm font-medium text-gray-700">Valor</label>
+                        <input type="number" id="amount" name="amount" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                    </div>
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700">Data</label>
+                        <input type="date" id="date" name="date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                    </div>
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                        <select id="status" name="status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" required>
+                            <option value="Pago">Pago</option>
+                            <option value="Pendente">Pendente</option>
+                            <option value="À Vista">À Vista</option>
+                            <option value="A Prazo">A Prazo</option>
+                        </select>
+                    </div>
+                    <div id="installments-container" class="hidden">
+                        <label for="installments" class="block text-sm font-medium text-gray-700">Parcelas</label>
+                        <input type="number" id="installments" name="installments" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">Adicionar</button>
+                </form>
+            </div>
+
+            <div class="bg-white p-6 rounded shadow-md mt-8">
+                <h2 class="text-xl font-bold mb-4">Lista de Despesas</h2>
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr>
+                            <th class="py-2">Descrição</th>
+                            <th class="py-2">Valor</th>
+                            <th class="py-2">Data</th>
+                            <th class="py-2">Status</th>
+                            <th class="py-2">Parcelas</th>
+                            <th class="py-2">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expense-list">
+                        <!-- Lista de despesas vazia -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="reports-section" class="hidden">
+            <div class="bg-white p-6 rounded shadow-md">
+                <h2 class="text-xl font-bold mb-4">Relatórios de Despesas</h2>
+                <div id="report-content">
+                    <!-- Relatórios serão gerados aqui -->
+                </div>
+            </div>
         </div>
     </main>
 

@@ -35,6 +35,7 @@ document.getElementById('expense-form').addEventListener('submit', function(even
     document.getElementById('installments-container').classList.add('hidden');
 
     addEventListeners();
+    generateReport();
 });
 
 function addEventListeners() {
@@ -60,12 +61,60 @@ function addEventListeners() {
             }
 
             row.remove();
+            generateReport();
         });
     });
 
     document.querySelectorAll('.delete-btn').forEach(button => {
         button.addEventListener('click', function() {
             this.closest('tr').remove();
+            generateReport();
         });
     });
 }
+
+function generateReport() {
+    const rows = document.querySelectorAll('#expense-list tr');
+    let totalAmount = 0;
+    let paidAmount = 0;
+    let pendingAmount = 0;
+
+    rows.forEach(row => {
+        const amount = parseFloat(row.children[1].textContent.replace('R$ ', ''));
+        const status = row.children[3].textContent;
+
+        totalAmount += amount;
+        if (status === 'Pago') {
+            paidAmount += amount;
+        } else if (status === 'Pendente') {
+            pendingAmount += amount;
+        }
+    });
+
+    const reportContent = `
+        <p>Total de Despesas: R$ ${totalAmount.toFixed(2)}</p>
+        <p>Total Pago: R$ ${paidAmount.toFixed(2)}</p>
+        <p>Total Pendente: R$ ${pendingAmount.toFixed(2)}</p>
+    `;
+
+    document.getElementById('report-content').innerHTML = reportContent;
+}
+
+document.getElementById('home-link').addEventListener('click', function() {
+    document.getElementById('home-section').classList.remove('hidden');
+    document.getElementById('expenses-section').classList.add('hidden');
+    document.getElementById('reports-section').classList.add('hidden');
+});
+
+document.getElementById('expenses-link').addEventListener('click', function() {
+    document.getElementById('home-section').classList.add('hidden');
+    document.getElementById('expenses-section').classList.remove('hidden');
+    document.getElementById('reports-section').classList.add('hidden');
+});
+
+document.getElementById('reports-link').addEventListener('click', function() {
+    document.getElementById('home-section').classList.add('hidden');
+    document.getElementById('expenses-section').classList.add('hidden');
+    document.getElementById('reports-section').classList.remove('hidden');
+    generateReport();
+});
